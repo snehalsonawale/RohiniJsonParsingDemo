@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Building> buildingList=  new ArrayList <> ();
     DatabaseHelper myDb;
 
-/////////////////// note///////// before run edit your api code //////////////////////////////////////////////////
+/////////////////// note///////// before run edit your api code in  //////////////////////////////////////////////////
 
 
     @Override

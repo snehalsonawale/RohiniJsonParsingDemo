@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Network.TeDatum> data;
     Button btnview;
    // String url="https://api.learn2crack.com/";
-    String url="http://stam.attendanceportal.com/";
     RetrofitAdapter adapter;
     Spinner spinner;
 
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Building> buildingList=  new ArrayList <> ();
     DatabaseHelper myDb;
 
-
+/////////////////// note///////// before run edit your api code //////////////////////////////////////////////////
 
 
     @Override

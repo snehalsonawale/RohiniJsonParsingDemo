@@ -34,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     // declear it in global scope
     ArrayList<Building> buildingList=  new ArrayList <> ();
     DatabaseHelper myDb;
+    String name;
+    String subjectid;
+    String selectedName;
 
 /////////////////// note///////// before run edit your api code in  //////////////////////////////////////////////////
 
@@ -44,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myDb = new DatabaseHelper(MainActivity.this);
-        initViews();
+       // initViews();
         loadJSON();
 
         spinner=(Spinner)findViewById(R.id.country_Name);
@@ -53,17 +56,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Cursor res = myDb.getAllData();
+
+
+                //Cursor res = myDb.getAllData();
+                Cursor res = myDb.readata(subjectid);
+
+                /* error while compiling: SELECT * FROM student_table WHERE PKQ1.181030.001 = 1*/
+                /*while compiling: SELECT * FROM student_table WHERE SUBJECTID = SURGERY AND ALLIED
+                * (1) no such column: SURGERY
+                *
+                * */
+
+
                 if(res.getCount() == 0) {
                     // show message
                     showMessage("Error","Nothing found");
                     return;
                 }
+
+
                 StringBuffer buffer = new StringBuffer();
                 while (res.moveToNext()) {
-                    buffer.append("Id :"+ res.getString(0)+"\n");
-                    buffer.append("subject name :"+ res.getString(1)+"\n");
-                    buffer.append("subject id :"+ res.getString(2)+"\n");
+                   // buffer.append("Id :"+ res.getString(0)+"\n");
+                   buffer.append("subject name :"+ res.getString(1)+"\n");
+                 buffer.append("subject id :"+ res.getString(2)+"\n");
                    // buffer.append("subsubject name :"+ res.getString(3)+"\n\n");
                   //  buffer.append("Subject id :"+ res.getString(4)+"\n\n");
                    // buffer.append("Sub Subject id :"+ res.getString(5)+"\n\n");
@@ -80,13 +96,13 @@ public class MainActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedName = parent.getItemAtPosition(position).toString();
+                 selectedName = parent.getItemAtPosition(position).toString();
 
 
                 // here you can retrive you building info by positon
                 Building building = buildingList.get(position);
 
-                String subjectid = building.getId();
+                 subjectid = building.getId();
                 String name = building.getName();
 
                 // Now you can use your id or name to do whatever you want.
@@ -110,13 +126,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
             }
 
             @Override
@@ -126,6 +135,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+
     public void showMessage(String title,String Message){
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setCancelable(true);
@@ -134,7 +145,8 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
-    private void initViews(){
+    private void readdta(){
+
 
       //  recyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
        // recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -158,15 +170,24 @@ public class MainActivity extends AppCompatActivity {
                // ArrayList<Network.TeDatum> list = (ArrayList<Network.TeDatum>) response.body().getTeData();
 
                  ArrayList  arrayList = new ArrayList <> ();
-
-                List<Network.TeDatum> semuadosenItems = response.body().getTeData();
-                List<String> listSpinner = new ArrayList<String>();
-
-
+                 List<Network.TeDatum> semuadosenItems = response.body().getTeData();
                 for (int i = 0; i < semuadosenItems.size(); i++){
 
-                    String id=semuadosenItems.get (i).getSubjectId ();
+
+                   /* if (semuadosenItems.get (i).getSubjectId () != null && !semuadosenItems.get (i).getSubjectId ().isEmpty()) {
+                        String id=semuadosenItems.get (i).getSubjectId ();
+                         name =semuadosenItems.get (i).getSubjectName ();
+                        Building building = new Building(id, name);
+                        buildingList.add(building);
+
+                    }
+*/
+                 //   arrayList.add(name);
+
+                   String id=semuadosenItems.get (i).getSubjectId ();
                     String name =semuadosenItems.get (i).getSubjectName ();
+
+
 
                     Building building = new Building(id, name);
                     buildingList.add(building);

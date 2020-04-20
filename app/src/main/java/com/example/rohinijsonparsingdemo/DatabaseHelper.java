@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import static android.os.Build.ID;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "Student.db";
@@ -18,6 +20,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
   //  public static final String COL_5 = "SUBJECTID";
   //  public static final String COL_6 = "SUBSUBJECTID";
    // public static final String COL_4 = "MARKS";
+
+
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -56,6 +60,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public Cursor readata(String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+       // String query = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE columnName = SUBJECTNAME";
+        //Cursor res = db.rawQuery(query, new String[] {comment});
+       // Cursor res = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE columnName = SUBJECTNAME");
+
+
+        /*while compiling: SELECT * FROM student_table WHERE PKQ1.181030.001 = 1*/
+        Cursor res = db.rawQuery("SELECT * FROM " +TABLE_NAME+" WHERE " +COL_3  + " = " + id, null);
+        return res;
+    }
 
 
 

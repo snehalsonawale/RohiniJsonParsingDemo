@@ -17,6 +17,8 @@ import java.util.List;
 
 public class RetrofitAdapter extends RecyclerView.Adapter<RetrofitAdapter.RetrofitHolder> {
 
+
+
     List<Network.TeDatum> list;
 
     Context context;
